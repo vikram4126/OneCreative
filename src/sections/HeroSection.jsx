@@ -1,4 +1,4 @@
-import React, { useRef, useLayoutEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -40,52 +40,73 @@ export const SectionHero = () => {
   const cardRefs    = useRef([]);
   const contentRefs = useRef([]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     /* ── initial state (before JS runs) ── */
-    const cards    = cardRefs.current;
-    const contents = contentRefs.current;
-
-    /* small-rectangle proportions  */
-    const SX = 0.42;
-    const SY = 0.34;
+    const cards    = cardRefs.current.filter(Boolean);
+    const contents = contentRefs.current.filter(Boolean);
 
     const ctx = gsap.context(() => {
+      if (!sectionRef.current) return;
+      
+      const sectionRect = sectionRef.current.getBoundingClientRect();
+      const sectionCenterX = sectionRect.left + sectionRect.width / 2;
+      const sectionCenterY = sectionRect.top + sectionRect.height / 2;
 
-      /* force every card to tiny outlined-rect state */
-      gsap.set(cards, {
-        opacity: 0,
-        scaleX: SX,
-        scaleY: SY,
-        backgroundColor: 'rgba(255,255,255,0)',
-        boxShadow: 'none',
+      cards.forEach((card) => {
+        const rect = card.getBoundingClientRect();
+        const cardCenterX = rect.left + rect.width / 2;
+        const cardCenterY = rect.top + rect.height / 2;
+        
+        // Distance to move card from its grid position to the center of the section
+        const dx = sectionCenterX - cardCenterX;
+        const dy = sectionCenterY - cardCenterY;
+        
+        gsap.set(card, {
+          x: dx,
+          y: dy,
+          opacity: 0,
+          scale: 0.95,
+          backgroundColor: 'rgba(255,255,255,0)',
+          boxShadow: 'none',
+        });
       });
+
       gsap.set(contents, { opacity: 0, y: 18 });
 
-      const tl = gsap.timeline({ delay: 0.5 });
-      // ... cards animation ...
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          scroller: sectionRef.current.closest('main') || window,
+          start: 'top 60%', // Trigger when section is in view
+        }
+      });
+
+      // 1. Fade in the overlapping cards as a "single box" at the center
       tl.to(cards, {
         opacity: 1,
-        duration: 0.45,
-        stagger: 0.22,
-        ease: 'power3.out',
+        duration: 0.4,
+        ease: 'power2.out',
       });
-      tl.addLabel('expand', '+=0.55');
+
+      // 2. Expand out to grid positions (1 box divides into 4)
       tl.to(cards, {
-        scaleX: 1,
-        scaleY: 1,
+        x: 0,
+        y: 0,
+        scale: 1,
         backgroundColor: 'rgba(245,247,250,0.98)',
         boxShadow: '0 8px 40px rgba(30,73,226,0.10)',
-        duration: 0.85,
-        stagger: 0.12,
-        ease: 'power2.inOut',
-      }, 'expand');
+        duration: 1,
+        ease: 'expo.out',
+      }, '+=0.2');
+
+      // 3. Fade in text content
       tl.to(contents, {
         opacity: 1,
         y: 0,
-        duration: 0.55,
-        stagger: 0.12,
+        duration: 0.6,
+        stagger: 0.1,
         ease: 'power2.out',
-      }, 'expand+=0.5');
+      }, '-=0.5');
 
     }, sectionRef);
 
@@ -166,7 +187,7 @@ export const SectionHero = () => {
                 <h2
                   className="hero-card-title"
                   style={{
-                    fontFamily: 'Outfit, sans-serif',
+                    fontFamily: 'var(--font-heading)',
                     fontSize: 'clamp(1.15rem, 1.8vw, 1.55rem)',
                     fontWeight: 800,
                     textAlign: 'center',

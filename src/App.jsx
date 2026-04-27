@@ -2,19 +2,31 @@ import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import SidebarMenu from './components/SidebarMenu';
 import { SectionHero } from './sections/HeroSection';
+import { SectionVideoIntro } from './sections/SectionVideoIntro';
 import {
   SectionDesignStrategy,
   SectionExploring,
   SectionInspiration,
 } from './sections/SpecializedSections';
+import { SectionCreativeShowcase } from './sections/SectionCreativeShowcase';
 import SectionAttention from './sections/SectionAttention';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isNavbarDark, setIsNavbarDark] = useState(false);
   const scrollerRef = React.useRef(null);
-  
+
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  const handleVideoComplete = () => {
+    const homeEl = document.getElementById('home');
+    if (homeEl && scrollerRef.current) {
+      scrollerRef.current.scrollTo({
+        top: homeEl.offsetTop,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -22,7 +34,7 @@ function App() {
         setIsNavbarDark(scrollerRef.current.scrollTop > 64);
       }
     };
-    
+
     const scroller = scrollerRef.current;
     if (scroller) {
       scroller.addEventListener('scroll', handleScroll);
@@ -39,7 +51,10 @@ function App() {
       <Navbar onMenuToggle={toggleMenu} isScrolled={isNavbarDark} />
       <SidebarMenu isOpen={isMenuOpen} onToggle={toggleMenu} />
 
-      <main ref={scrollerRef} className="h-screen overflow-y-auto overflow-x-hidden scroll-smooth">
+      <main id="main-scroller" ref={scrollerRef} className="h-screen overflow-y-auto overflow-x-hidden scroll-smooth">
+
+        {/* Intro Video */}
+        <SectionVideoIntro onComplete={handleVideoComplete} />
 
         {/* 1. Hero — GSAP animation */}
         <div id="home">
@@ -56,10 +71,6 @@ function App() {
           <SectionExploring />
         </div>
 
-        {/* 4. Attention Section */}
-        <div id="attention">
-          <SectionAttention />
-        </div>
 
         {/* 5. Inspiration Meets Technology */}
         <div id="services">
@@ -67,16 +78,7 @@ function App() {
         </div>
 
         {/* 6. Creative Showcase */}
-        <div id="creative-showcase" className="bg-[#00B8F5] h-screen flex items-center justify-center py-16">
-          <div className="container mx-auto">
-            <h1
-              className="content-creation-title text-white text-center uppercase"
-              style={{ fontSize: 'clamp(2.5rem, 7vw, 6rem)', fontWeight: 900, lineHeight: 1 }}
-            >
-              Creative Showcase
-            </h1>
-          </div>
-        </div>
+        <SectionCreativeShowcase />
 
       </main>
     </div>

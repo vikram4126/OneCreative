@@ -1,6 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Bebas+Neue&display=swap');
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Open Sans Heading';
+  src: url('/fonts/OpenSans_Condensed-Bold-normal.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Open Sans Subheading';
+  src: url('/fonts/OpenSans-SemiBold-normal.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Open Sans Content';
+  src: url('/fonts/OpenSans-Regular-normal.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
 @theme {
   --color-blue-dark:   #00338D;
   --color-blue-medium: #1E49E2;
@@ -15,6 +36,9 @@
   --font-inter:  "Inter",      sans-serif;
   --font-outfit: "Outfit",     sans-serif;
   --font-bebas:  "Bebas Neue", sans-serif;
+  --font-heading: "Open Sans Heading", sans-serif;
+  --font-subheading: "Open Sans Subheading", sans-serif;
+  --font-content: "Open Sans Content", sans-serif;
 }
 
 /* ─── Reset — no border-radius anywhere globally ─── */
@@ -42,18 +66,19 @@ html, body {
   margin: 0; padding: 0;
   background: #00B8F5;
   color: #fff;
-  font-family: var(--font-inter);
+  font-family: var(--font-content);
   scroll-behavior: smooth;
   overflow-x: hidden;
 }
 
 /* Global white text */
 h1, h2, h3, h4, p, span, div { color: #FFFFFF !important; }
-h1, h2, h3, h4 { font-family: var(--font-outfit); font-weight: 700; }
+h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; }
+h5, h6, .subheading { font-family: var(--font-subheading); font-weight: 600; }
 
 /* ─── Typography ─────────────────────────────────── */
 .content-creation-title {
-  font-family: 'Bebas Neue', cursive;
+  font-family: var(--font-heading);
   letter-spacing: -0.01em;
 }
 
@@ -118,4 +143,26 @@ section {
 @media (max-width: 768px) {
   .menu-item   { font-size: 2rem; }
   .drawer-menu { max-width: 100%; }
+}
+
+/* ─── Custom Swiper Controls ─────────────────────── */
+.custom-pagination .swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+  background: transparent;
+  border: 2px solid #FFFFFF;
+  opacity: 1;
+  border-radius: 50% !important;
+  transition: all 0.3s ease;
+}
+
+.custom-pagination .swiper-pagination-bullet-active {
+  background: #FFFFFF;
+  transform: scale(1.2);
+}
+
+.custom-prev.swiper-button-disabled,
+.custom-next.swiper-button-disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
 }
