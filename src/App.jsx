@@ -9,76 +9,105 @@ import {
   SectionInspiration,
 } from './sections/SpecializedSections';
 import { SectionCreativeShowcase } from './sections/SectionCreativeShowcase';
+import { SectionServices } from './sections/SectionServices';
+import { SectionCreativity } from './sections/SectionCreativity';
+import { SectionFooter } from './sections/SectionFooter';
 import SectionAttention from './sections/SectionAttention';
+import footerBg from './assets/images/footer-bg.png';
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isNavbarDark, setIsNavbarDark] = useState(false);
+  const [isVideoFinished, setIsVideoFinished] = useState(false);
   const scrollerRef = React.useRef(null);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   const handleVideoComplete = () => {
-    const homeEl = document.getElementById('home');
-    if (homeEl && scrollerRef.current) {
-      scrollerRef.current.scrollTo({
-        top: homeEl.offsetTop,
-        behavior: 'smooth'
-      });
+    setIsVideoFinished(true);
+    const homeEl = document.getElementById('intro-start');
+    if (homeEl) {
+      homeEl.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   React.useEffect(() => {
     const handleScroll = () => {
-      if (scrollerRef.current) {
-        setIsNavbarDark(scrollerRef.current.scrollTop > 64);
-      }
+      setIsNavbarDark(window.scrollY > 64);
     };
 
-    const scroller = scrollerRef.current;
-    if (scroller) {
-      scroller.addEventListener('scroll', handleScroll);
-    }
+    window.addEventListener('scroll', handleScroll);
     return () => {
-      if (scroller) {
-        scroller.removeEventListener('scroll', handleScroll);
-      }
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
   return (
     <div className="relative overflow-x-hidden">
-      <Navbar onMenuToggle={toggleMenu} isScrolled={isNavbarDark} />
-      <SidebarMenu isOpen={isMenuOpen} onToggle={toggleMenu} />
+      {isVideoFinished && (
+        <>
+          <Navbar onMenuToggle={toggleMenu} isScrolled={isNavbarDark} />
+          <SidebarMenu isOpen={isMenuOpen} onToggle={toggleMenu} />
+        </>
+      )}
 
-      <main id="main-scroller" ref={scrollerRef} className="h-screen overflow-y-auto overflow-x-hidden scroll-smooth">
+      <main id="main-scroller" ref={scrollerRef} className="w-full relative scroll-smooth snap-container">
 
         {/* Intro Video */}
-        <SectionVideoIntro onComplete={handleVideoComplete} />
+        <section id="feature-video" className="snap-section">
+          <SectionVideoIntro onComplete={handleVideoComplete} />
+        </section>
 
         {/* 1. Hero — GSAP animation */}
-        <div id="home">
+        <section id="intro-start" className="snap-section">
           <SectionHero />
-        </div>
+        </section>
 
-        {/* 2. Design Strategy */}
-        <div id="pillars">
+        {/* 2. Creativity Section */}
+        <section id="intro-end" className="snap-section">
+          <SectionCreativity />
+        </section>
+
+        {/* 3. Design Strategy */}
+        <section id="pillars" className="snap-section">
           <SectionDesignStrategy />
-        </div>
+        </section>
 
-        {/* 3. Exploring New Possibilities */}
-        <div id="exploring">
+        {/* 4. Services Cards */}
+        <section id="services" className="snap-section">
+          <SectionServices />
+        </section>
+
+        {/* 5. Creative Showcase (Moved here) */}
+        <section className="snap-section">
+          <SectionCreativeShowcase />
+        </section>
+
+        {/* 6. Exploring New Possibilities */}
+        <section id="exploring" className="snap-section">
           <SectionExploring />
-        </div>
+        </section>
 
-
-        {/* 5. Inspiration Meets Technology */}
-        <div id="services">
+        {/* 7. Inspiration Meets Technology */}
+        <section id="inspiration" className="snap-section">
           <SectionInspiration />
-        </div>
+        </section>
 
-        {/* 6. Creative Showcase */}
-        <SectionCreativeShowcase />
+
+        {/* 9. Footer */}
+        <section 
+          className="snap-section"
+          style={{ 
+            backgroundImage: `url(${footerBg})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            backgroundColor: '#FFFFFF',
+            padding: '80px 0'
+          }}
+        >
+          <SectionFooter />
+        </section>
 
       </main>
     </div>

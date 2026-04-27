@@ -17,47 +17,51 @@ const TAB_DATA = {
 
 export const SectionCreativeShowcase = () => {
   const [activeTab, setActiveTab] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [isFading, setIsFading] = useState(false);
 
   const handleTabChange = (idx) => {
-    if (idx === activeTab || isAnimating) return;
-    
-    setIsAnimating(true);
+    if (idx === activeTab || isFading) return;
+    setIsFading(true);
     setTimeout(() => {
       setActiveTab(idx);
-      setIsAnimating(false);
-    }, 300); // Match this duration with the CSS transition
+      setIsFading(false);
+    }, 300);
   };
 
   const currentSlides = TAB_DATA[activeTab] || [];
 
   return (
-    <section id="creative-showcase" className="w-full bg-[#00B8F5] py-24 min-h-screen flex flex-col justify-center overflow-hidden">
-      <div className="container mx-auto px-6 lg:px-12 flex flex-col items-start max-w-7xl">
+    <section id="creative-showcase" className="w-full bg-[#F5F7FA] py-[80px] flex flex-col justify-center overflow-hidden">
+      <div className="container mx-auto px-6 lg:px-12 flex flex-col items-start max-w-[1400px]">
         
         {/* Heading */}
         <h2 
-          className="text-white uppercase mb-10 w-full text-center" 
-          style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', fontWeight: 900, lineHeight: 1 }}
+          className="text-[#00338d] w-full text-center" 
+          style={{ 
+            fontSize: 'clamp(2.5rem, 5.5vw, 4.8rem)', 
+            fontWeight: 900, 
+            lineHeight: 1,
+            marginBottom: '30px'
+          }}
         >
           Creative show case
         </h2>
 
         {/* Tabs */}
-        <div className="flex flex-wrap justify-center w-full gap-4 mb-12">
+        <div className="flex flex-wrap justify-center w-full gap-0 mb-12">
           {TABS.map((tab, idx) => (
             <button
               key={idx}
               onClick={() => handleTabChange(idx)}
-              className={`px-6 py-2 border-2 border-white transition-all duration-300 ${
+              className={`px-16 py-4 transition-all duration-300 relative bg-[#D1D5DB] text-[#00338d] ${
                 activeTab === idx 
-                  ? 'bg-white text-[#00B8F5] font-bold' 
-                  : 'bg-transparent text-white hover:bg-white/20'
+                  ? 'font-bold' 
+                  : 'font-medium hover:bg-[#E5E7EB]'
               }`}
               style={{ 
                 fontFamily: 'var(--font-heading)', 
-                fontSize: '1.25rem', 
-                borderRadius: '30px' 
+                fontSize: '1.2rem', 
+                borderBottom: activeTab === idx ? '5px solid #00338d' : '5px solid transparent',
               }}
             >
               {tab}
@@ -66,9 +70,7 @@ export const SectionCreativeShowcase = () => {
         </div>
 
         {/* Slider Area */}
-        <div 
-          className={`w-full relative mt-4 transition-opacity duration-300 ${isAnimating ? 'opacity-0' : 'opacity-100'}`}
-        >
+        <div className={`w-full relative mt-4 transition-opacity duration-300 ease-in-out ${isFading ? 'opacity-0' : 'opacity-100'}`}>
           <Swiper
             key={activeTab} // Force re-mount of swiper on tab change
             modules={[Pagination, Navigation]}
@@ -107,11 +109,17 @@ export const SectionCreativeShowcase = () => {
 
           {/* Custom Navigation & Pagination Controls (Bottom Left) */}
           <div className="flex items-center mt-10 gap-4">
-            <button className="custom-prev flex items-center justify-center w-12 h-12 border-2 border-white text-white hover:bg-white hover:text-[#00B8F5] transition-colors cursor-pointer z-10" style={{ borderRadius: '50%' }}>
-              <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+            <button className="custom-prev flex items-center justify-center w-14 h-14 border-2 border-[#00338d] text-[#00338d] hover:bg-[#00338d] hover:text-white transition-colors cursor-pointer z-10" style={{ borderRadius: '50%' }}>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+              </svg>
             </button>
-            <button className="custom-next flex items-center justify-center w-12 h-12 border-2 border-white text-white hover:bg-white hover:text-[#00B8F5] transition-colors cursor-pointer z-10" style={{ borderRadius: '50%' }}>
-              <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            <button className="custom-next flex items-center justify-center w-14 h-14 border-2 border-[#00338d] text-[#00338d] hover:bg-[#00338d] hover:text-white transition-colors cursor-pointer z-10" style={{ borderRadius: '50%' }}>
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
             </button>
             
             <div className="custom-pagination flex items-center gap-3 ml-4 z-10" />

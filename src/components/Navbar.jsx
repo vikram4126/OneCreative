@@ -5,13 +5,13 @@ const Navbar = ({ onMenuToggle, isScrolled = false }) => {
   // KPMG Corporate Blue: #00338D
   // When scrolled: White icons on Blue background
   // When at top: Blue icons on Transparent background (assuming Hero is white)
-  const iconColor = isScrolled ? '#FFFFFF' : '#00338D';
+  const iconColor = '#00338D';
 
   return (
     <nav 
-      className={`fixed top-0 left-0 w-full z-[100] transition-all duration-300 pointer-events-none ${isScrolled ? 'bg-[#00338D] shadow-lg' : 'bg-transparent'}`}
+      className="fixed top-0 left-0 w-full z-[100] transition-all duration-300 pointer-events-none bg-white border-b border-gray-200 shadow-sm"
     >
-      <div className="container mx-auto py-5 flex justify-between items-center pointer-events-auto">
+      <div className="container mx-auto py-5 flex justify-between items-center pointer-events-auto px-6 lg:px-12">
         
         {/* KPMG SVG Logo */}
         <div className="h-10 w-auto flex items-center">
@@ -20,9 +20,7 @@ const Navbar = ({ onMenuToggle, isScrolled = false }) => {
             alt="KPMG"
             className="h-full w-auto transition-all duration-300"
             style={{ 
-              filter: isScrolled 
-                ? 'brightness(0) invert(1)'  /* White */
-                : 'brightness(0) saturate(100%) invert(14%) sepia(86%) saturate(1583%) hue-rotate(208deg) brightness(91%) contrast(101%)' /* Blue #00338D */
+              filter: 'brightness(0) saturate(100%) invert(14%) sepia(86%) saturate(1583%) hue-rotate(208deg) brightness(91%) contrast(101%)' /* Blue #00338D */
             }}
           />
         </div>
