@@ -95,7 +95,6 @@ export const SectionCreativeShowcase = () => {
               <SwiperSlide key={i} className="flex justify-center">
                 <div 
                   className="relative w-full aspect-[4/3] md:aspect-[16/10] bg-[#0C233C] overflow-hidden"
-                  style={{ borderRadius: '24px' }}
                 >
                   <img 
                     src={`/images/slider-items/${imageName}`} 

@@ -1,14 +1,24 @@
 import React from 'react';
 
-const SidebarMenu = ({ isOpen, onToggle }) => {
+const SidebarMenu = ({ isOpen, onToggle, activeSection }) => {
   const menuItems = [
+    { label: 'Introduction',      id: 'intro-end' },
     { label: 'Pillars',           id: 'pillars' },
-    { label: 'Attention',         id: 'attention' },
     { label: 'Services',          id: 'services' },
     { label: 'Creative Showcase', id: 'creative-showcase' },
-    { label: 'Get in touch',      id: 'get-in-touch', className: 'get-in-touch' },
-    { label: 'Home',              id: 'home' },
+    { label: 'Exploring',         id: 'exploring' },
+    { label: 'Inspiration',       id: 'inspiration' },
+    { label: 'Get in touch',      id: 'footer', className: 'get-in-touch' },
+    { label: 'Home',              id: 'intro-start', className: 'home-link' },
   ];
+
+  const handleLinkClick = (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+    onToggle(); // Close menu
+  };
 
   return (
     <>
@@ -23,21 +33,21 @@ const SidebarMenu = ({ isOpen, onToggle }) => {
         {/* Close */}
         <button
           onClick={onToggle}
-          className="self-end p-3 bg-white/20 hover:bg-white/30 rounded-sm mb-10 transition-all"
+          className="self-end p-2 bg-white/20 hover:bg-white/30 rounded-sm mb-6 transition-all"
           aria-label="Close menu"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
             <path d="M18 6L6 18M6 6l12 12" />
           </svg>
         </button>
 
         {/* Nav Links */}
-        <nav className="flex flex-col gap-0">
+        <nav className="flex-1 flex flex-col justify-center overflow-y-auto">
           {menuItems.map((item) => (
             <div
               key={item.id}
-              className={`menu-item ${item.className || ''}`}
-              onClick={onToggle}
+              className={`menu-item ${item.className || ''} ${activeSection === item.id ? 'active' : ''}`}
+              onClick={() => handleLinkClick(item.id)}
             >
               {item.label}
             </div>

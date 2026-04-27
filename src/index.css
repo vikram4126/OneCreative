@@ -132,10 +132,10 @@ section {
 .drawer-menu {
   position: fixed;
   top: 0; right: -100%;
-  width: 100%; max-width: 460px;
+  width: 100%; max-width: 580px;
   height: 100vh;
   background: #00B8F5;
-  z-index: 100;
+  z-index: 200;
   transition: right 0.45s cubic-bezier(0.77, 0, 0.175, 1);
   box-shadow: -20px 0 50px rgba(0,0,0,0.2);
 }
@@ -153,17 +153,33 @@ section {
 
 /* ─── Menu links (2.8rem, no border-radius) ──────── */
 .menu-item {
-  font-family: 'Bebas Neue', cursive;
-  font-size: 2.8rem;
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 5vw, 2.2rem);
   line-height: 1.1;
-  text-transform: uppercase;
-  border-bottom: 1px solid rgba(255,255,255,0.2);
-  padding: 0.85rem 0;
+  text-transform: none;
+  border-bottom: 1px solid rgba(255,255,255,0.4);
+  padding: 1rem 0;
   cursor: pointer;
+  color: #FFFFFF;
   transition: all 0.3s ease;
 }
-.menu-item:hover        { padding-left: 1.25rem; color: #ACEAFF !important; }
-.menu-item.get-in-touch { color: #00338D !important; }
+.menu-item:hover        { padding-left: 1.25rem; color: #00338D; }
+.menu-item.active       { 
+  padding-left: 1.25rem; 
+  color: #00338D; 
+  border-left: 4px solid #00338D;
+  font-weight: 700;
+}
+.menu-item.get-in-touch { 
+  color: #00338D !important; 
+  border-bottom: none;
+  margin-top: 10px;
+}
+.menu-item.home-link {
+  border-bottom: none;
+  border-top: 1px solid rgba(255,255,255,0.4);
+  margin-top: 1rem;
+}
 
 /* ─── Responsive ─────────────────────────────────── */
 @media (max-width: 768px) {

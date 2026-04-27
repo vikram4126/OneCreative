@@ -130,11 +130,11 @@ export const SectionServices = () => {
                 <h2
                   style={{
                     fontFamily: 'var(--font-heading)',
-                    fontSize: 'clamp(1.1rem, 1.7vw, 1.4rem)',
-                    fontWeight: 900,
+                    fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', // Significantly increased
+                    fontWeight: 700, // Matching the Condensed Bold font weight
                     textAlign: 'center',
                     lineHeight: 1.1,
-                    color: '#FFFFFF !important', // Ensure white text
+                    color: '#FFFFFF !important', 
                     textTransform: 'none',
                   }}
                 >

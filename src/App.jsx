@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import SidebarMenu from './components/SidebarMenu';
 import { SectionHero } from './sections/HeroSection';
@@ -21,6 +21,34 @@ function App() {
   const [isVideoFinished, setIsVideoFinished] = useState(false);
   const scrollerRef = React.useRef(null);
 
+  const [activeSection, setActiveSection] = useState('intro-start');
+
+  // Update active section based on scroll position
+  useEffect(() => {
+    const sectionIds = ['intro-start', 'intro-end', 'pillars', 'services', 'creative-showcase', 'exploring', 'inspiration', 'footer'];
+    const handleScroll = () => {
+      const scrollPos = window.scrollY + window.innerHeight / 2;
+      let current = activeSection;
+      for (const id of sectionIds) {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          const top = rect.top + window.scrollY;
+          const bottom = top + el.offsetHeight;
+          if (scrollPos >= top && scrollPos < bottom) {
+            current = id;
+            break;
+          }
+        }
+      }
+      setActiveSection(current);
+    };
+    window.addEventListener('scroll', handleScroll);
+    // Initial check
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   const handleVideoComplete = () => {
@@ -31,7 +59,22 @@ function App() {
     }
   };
 
-  React.useEffect(() => {
+  // Show navbar when intro-start section enters viewport (scroll or skip)
+  useEffect(() => {
+    const introSection = document.getElementById('intro-start');
+    if (!introSection) return;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setIsVideoFinished(true);
+        }
+      });
+    }, { threshold: 0.1 });
+    observer.observe(introSection);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     const handleScroll = () => {
       setIsNavbarDark(window.scrollY > 64);
     };
@@ -47,7 +90,7 @@ function App() {
       {isVideoFinished && (
         <>
           <Navbar onMenuToggle={toggleMenu} isScrolled={isNavbarDark} />
-          <SidebarMenu isOpen={isMenuOpen} onToggle={toggleMenu} />
+          <SidebarMenu isOpen={isMenuOpen} onToggle={toggleMenu} activeSection={activeSection} />
         </>
       )}
 
@@ -78,8 +121,8 @@ function App() {
           <SectionServices />
         </section>
 
-        {/* 5. Creative Showcase (Moved here) */}
-        <section className="snap-section">
+        {/* 5. Creative Showcase */}
+        <section id="creative-showcase" className="snap-section">
           <SectionCreativeShowcase />
         </section>
 
@@ -96,6 +139,7 @@ function App() {
 
         {/* 9. Footer */}
         <section 
+          id="footer"
           className="snap-section"
           style={{ 
             backgroundImage: `url(${footerBg})`,
