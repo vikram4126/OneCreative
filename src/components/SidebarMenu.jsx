@@ -1,6 +1,10 @@
 import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const SidebarMenu = ({ isOpen, onToggle, activeSection }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const menuItems = [
     { label: 'Introduction',      id: 'intro-end' },
     { label: 'Pillars',           id: 'pillars' },
@@ -13,9 +17,22 @@ const SidebarMenu = ({ isOpen, onToggle, activeSection }) => {
   ];
 
   const handleLinkClick = (id) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+    if (location.pathname === '/') {
+      // If already on the homepage, just scroll
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // If on a different page, navigate to homepage with hash
+      navigate(`/#${id}`);
+      // Fallback for smooth scroll after navigation:
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
     }
     onToggle(); // Close menu
   };
