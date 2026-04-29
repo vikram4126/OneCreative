@@ -1,11 +1,11 @@
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const SidebarMenu = ({ isOpen, onToggle, activeSection }) => {
+const SidebarMenu = ({ isOpen, onToggle, activeSection, hideSections = false }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const menuItems = [
+  const allMenuItems = [
     { label: 'Introduction',      id: 'intro-end' },
     { label: 'Pillars',           id: 'pillars' },
     { label: 'Services',          id: 'services' },
@@ -15,6 +15,10 @@ const SidebarMenu = ({ isOpen, onToggle, activeSection }) => {
     { label: 'Get in touch',      id: 'footer', className: 'get-in-touch' },
     { label: 'Home',              id: 'intro-start', className: 'home-link' },
   ];
+
+  const menuItems = hideSections 
+    ? allMenuItems.filter(item => item.label === 'Home') 
+    : allMenuItems;
 
   const handleLinkClick = (id) => {
     if (location.pathname === '/') {

@@ -10,8 +10,9 @@ import 'swiper/css/navigation';
 
 const TABS = ['Graphic Design', 'PPT Deck Design', 'Motion Graphics', 'Other Design'];
 
-const CreativeSlider = () => {
-  const [activeTab, setActiveTab] = useState(0);
+const CreativeSlider = ({ showTabs = true, fixedCategoryId, customHeading = "Creative show case" }) => {
+  // If fixedCategoryId is provided (on Project page), we use it. Otherwise default to 0.
+  const [activeTab, setActiveTab] = useState(fixedCategoryId !== undefined ? fixedCategoryId : 0);
   const [isFading, setIsFading] = useState(false);
 
   const handleTabChange = (idx) => {
@@ -40,30 +41,32 @@ const CreativeSlider = () => {
             marginBottom: '30px'
           }}
         >
-          Creative show case
+          {customHeading}
         </h2>
 
-        {/* Tabs */}
-        <div className="flex flex-wrap justify-center w-full gap-0 mb-12">
-          {TABS.map((tab, idx) => (
-            <button
-              key={idx}
-              onClick={() => handleTabChange(idx)}
-              className={`px-16 py-4 transition-all duration-300 relative bg-[#D1D5DB] text-[#00338d] ${
-                activeTab === idx 
-                  ? 'font-bold' 
-                  : 'font-medium hover:bg-[#E5E7EB]'
-              }`}
-              style={{ 
-                fontFamily: 'var(--font-heading)', 
-                fontSize: '1.2rem', 
-                borderBottom: activeTab === idx ? '5px solid #00338d' : '5px solid transparent',
-              }}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
+        {/* Tabs - Only show if showTabs is true */}
+        {showTabs && (
+          <div className="flex flex-wrap justify-center w-full gap-0 mb-12">
+            {TABS.map((tab, idx) => (
+              <button
+                key={idx}
+                onClick={() => handleTabChange(idx)}
+                className={`px-16 py-4 transition-all duration-300 relative bg-[#D1D5DB] text-[#00338d] ${
+                  activeTab === idx 
+                    ? 'font-bold' 
+                    : 'font-medium hover:bg-[#E5E7EB]'
+                }`}
+                style={{ 
+                  fontFamily: 'var(--font-heading)', 
+                  fontSize: '1.2rem', 
+                  borderBottom: activeTab === idx ? '5px solid #00338d' : '5px solid transparent',
+                }}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* Slider Area */}
         <div className={`w-full relative mt-4 transition-opacity duration-300 ease-in-out ${isFading ? 'opacity-0' : 'opacity-100'}`}>
@@ -89,7 +92,7 @@ const CreativeSlider = () => {
           >
             {currentSlides.map((slide, i) => (
               <SwiperSlide key={slide.id} className="flex justify-center">
-                <Link to={`/slide/${slide.id}`} className="block w-full h-full relative cursor-pointer group">
+                <Link to={`/project/${slide.id}`} className="block w-full h-full relative cursor-pointer group">
                   <div className="relative w-full aspect-[4/3] md:aspect-[16/10] bg-[#0C233C] overflow-hidden rounded-lg">
                     <img 
                       src={`/images/slider-items/${slide.image}`} 

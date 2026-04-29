@@ -3,8 +3,8 @@ import footerBg from '../assets/images/footer-bg.png';
 import memberKrishna from '../assets/images/member-krishna.jpg';
 import memberShweta from '../assets/images/member-shweta.jpg';
 
-export const SectionFooter = () => {
-  const members = [
+export const SectionFooter = ({ customMembers }) => {
+  const defaultMembers = [
     {
       name: 'Krishna Venkatrangan',
       role: 'Director,',
@@ -18,6 +18,8 @@ export const SectionFooter = () => {
       img: memberShweta
     }
   ];
+
+  const members = customMembers && customMembers.length > 0 ? customMembers : defaultMembers;
 
   return (
     <footer 
