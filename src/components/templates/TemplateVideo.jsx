@@ -13,7 +13,7 @@ const TemplateVideo = ({ slide }) => {
     <div 
       className="w-full min-h-[80vh] flex items-center justify-center py-20 relative overflow-hidden" 
       style={{ 
-        backgroundImage: 'url(/images/project-page-banner-background.jpeg)',
+        backgroundImage: 'url(images/project-page-banner-background.jpeg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundColor: '#00338d' // fallback
@@ -44,7 +44,7 @@ const TemplateVideo = ({ slide }) => {
         <div className="w-[90%] relative z-10 group cursor-pointer">
           <div className="w-full aspect-video bg-black/40 shadow-2xl overflow-hidden relative border border-white/5">
             <img 
-              src={`/images/slider-items/${slide.image}`} 
+              src={`images/slider-items/${slide.image}`} 
               alt={slide.title} 
               className="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform duration-700"
             />

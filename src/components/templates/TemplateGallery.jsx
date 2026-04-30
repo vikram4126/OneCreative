@@ -19,7 +19,7 @@ const TemplateGallery = ({ slide }) => {
     <div 
       className="w-full min-h-[80vh] flex items-center justify-center py-20 relative" 
       style={{ 
-        backgroundImage: 'url(/images/project-page-banner-background.jpeg)',
+        backgroundImage: 'url(images/project-page-banner-background.jpeg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundColor: '#00338d' // fallback
@@ -51,7 +51,7 @@ const TemplateGallery = ({ slide }) => {
         <div className="flex items-center justify-center w-full relative z-10">
           <div className="w-full aspect-[4/5] bg-white shadow-2xl overflow-hidden relative group">
             <img 
-              src={`/images/slider-items/${slide.image}`} 
+              src={`images/slider-items/${slide.image}`} 
               alt={`${slide.title} Main`} 
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
@@ -82,7 +82,7 @@ const TemplateGallery = ({ slide }) => {
                 <SwiperSlide key={idx} className="w-full" style={{ height: 'calc((100% - 20px) / 2)' }}>
                   <div className="w-full h-full bg-transparent shadow-xl overflow-hidden relative group border-2 border-white/20 aspect-[4/5] p-[10px]">
                     <img 
-                      src={`/images/slider-items/${img}`} 
+                      src={`images/slider-items/${img}`} 
                       alt={`Gallery ${idx + 1}`} 
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />

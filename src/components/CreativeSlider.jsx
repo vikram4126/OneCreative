@@ -15,6 +15,13 @@ const CreativeSlider = ({ showTabs = true, fixedCategoryId, customHeading = "Cre
   const [activeTab, setActiveTab] = useState(fixedCategoryId !== undefined ? fixedCategoryId : 0);
   const [isFading, setIsFading] = useState(false);
 
+  // Sync activeTab if fixedCategoryId changes (e.g. navigating between services)
+  React.useEffect(() => {
+    if (fixedCategoryId !== undefined) {
+      setActiveTab(fixedCategoryId);
+    }
+  }, [fixedCategoryId]);
+
   const handleTabChange = (idx) => {
     if (idx === activeTab || isFading) return;
     setIsFading(true);
@@ -95,7 +102,7 @@ const CreativeSlider = ({ showTabs = true, fixedCategoryId, customHeading = "Cre
                 <Link to={`/project/${slide.id}`} className="block w-full h-full relative cursor-pointer group">
                   <div className="relative w-full aspect-[4/3] md:aspect-[16/10] bg-[#0C233C] overflow-hidden rounded-lg">
                     <img 
-                      src={`/images/slider-items/${slide.image}`} 
+                      src={`images/slider-items/${slide.image}`} 
                       alt={slide.title}
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />

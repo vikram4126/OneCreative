@@ -32,8 +32,15 @@ const Home = () => {
       setTimeout(() => {
         const el = document.getElementById(id);
         if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
           setIsVideoFinished(true); // Skip video if navigating to a section
+          
+          // Refresh ScrollTrigger after smooth scroll to ensure everything is recalculated
+          setTimeout(() => {
+            import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+              ScrollTrigger.refresh();
+            });
+          }, 1000); // Wait for smooth scroll to finish
         }
       }, 100);
     }
@@ -43,7 +50,7 @@ const Home = () => {
   useEffect(() => {
     const sectionIds = ['intro-start', 'intro-end', 'pillars', 'services', 'creative-showcase', 'exploring', 'inspiration', 'footer'];
     const handleScroll = () => {
-      const scrollPos = window.scrollY + window.innerHeight / 2;
+      const scrollPos = window.scrollY + 100; // Account for 80px navbar + 20px buffer
       let current = activeSection;
       for (const id of sectionIds) {
         const el = document.getElementById(id);

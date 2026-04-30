@@ -31,11 +31,6 @@ const ProjectDetailPage = () => {
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
-  // Scroll to top on route change
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [id]);
-
   useEffect(() => {
     const handleScroll = () => {
       setIsNavbarDark(window.scrollY > 64);

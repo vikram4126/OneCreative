@@ -22,23 +22,20 @@ const SidebarMenu = ({ isOpen, onToggle, activeSection, hideSections = false }) 
 
   const handleLinkClick = (id) => {
     if (location.pathname === '/') {
-      // If already on the homepage, just scroll
       const el = document.getElementById(id);
       if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     } else {
-      // If on a different page, navigate to homepage with hash
       navigate(`/#${id}`);
-      // Fallback for smooth scroll after navigation:
       setTimeout(() => {
         const el = document.getElementById(id);
         if (el) {
-          el.scrollIntoView({ behavior: 'smooth' });
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-      }, 100);
+      }, 300);
     }
-    onToggle(); // Close menu
+    onToggle(); 
   };
 
   return (
@@ -63,7 +60,7 @@ const SidebarMenu = ({ isOpen, onToggle, activeSection, hideSections = false }) 
         </button>
 
         {/* Nav Links */}
-        <nav className="flex-1 flex flex-col justify-center overflow-y-auto">
+        <nav className="flex-1 flex flex-col overflow-y-auto pt-4 pb-4">
           {menuItems.map((item) => (
             <div
               key={item.id}

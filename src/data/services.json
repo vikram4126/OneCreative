@@ -1,0 +1,62 @@
+[
+  {
+    "id": "uk-create",
+    "title": "UK Create",
+    "banner": {
+      "title": ["UK", "Create"],
+      "description": "Empowering UK businesses with world-class creative solutions that drive engagement and deliver measurable results through strategic design and storytelling."
+    },
+    "details": [
+      { "title": "Creative Strategy", "image": "service-detail-1.jpeg", "desc": "Developing robust creative strategies that align with your business goals and market demands." },
+      { "title": "Visual Identity", "image": "service-detail-2.jpeg", "desc": "Crafting unique visual identities that make your brand stand out in a crowded marketplace." },
+      { "title": "Digital Content", "image": "service-detail-3.jpeg", "desc": "Producing high-impact digital content tailored for your target audience across all platforms." },
+      { "title": "Campaign Design", "image": "service-detail-4.jpeg", "desc": "Designing integrated campaigns that resonate with consumers and drive action." }
+    ],
+    "categoryId": 0
+  },
+  {
+    "id": "us-creative-services",
+    "title": "US Creative Services",
+    "banner": {
+      "title": ["US Creative", "Services"],
+      "description": "Comprehensive creative services for the US market, focusing on innovation, scalability, and brand consistency across diverse digital and print touchpoints."
+    },
+    "details": [
+      { "title": "Brand Evolution", "image": "service-detail-2.jpeg", "desc": "Helping established brands evolve and adapt to the changing digital landscape in the US." },
+      { "title": "Marketing Collateral", "image": "service-detail-3.jpeg", "desc": "Creating professional marketing materials that effectively communicate your value proposition." },
+      { "title": "UI/UX Design", "image": "service-detail-4.jpeg", "desc": "Designing intuitive user interfaces and engaging experiences for your digital products." },
+      { "title": "Social Media", "image": "service-detail-1.jpeg", "desc": "Developing creative assets for social media campaigns that capture attention and foster community." }
+    ],
+    "categoryId": 1
+  },
+  {
+    "id": "us-advisory-creative",
+    "title": "US Advisory Creative",
+    "banner": {
+      "title": ["US Advisory", "Creative"],
+      "description": "Bridging the gap between strategy and creativity, providing advisory-led design solutions that simplify complex information and enhance corporate communication."
+    },
+    "details": [
+      { "title": "Information Design", "image": "service-detail-3.jpeg", "desc": "Transforming complex data into clear, compelling visual narratives for stakeholders." },
+      { "title": "Corporate Presentations", "image": "service-detail-4.jpeg", "desc": "Designing high-stakes presentations that help you win business and influence decisions." },
+      { "title": "Strategic Reports", "image": "service-detail-1.jpeg", "desc": "Creating visually engaging reports that highlight key insights and strategic directions." },
+      { "title": "Leadership Comms", "image": "service-detail-2.jpeg", "desc": "Supporting leadership with creative assets that articulate vision and drive transformation." }
+    ],
+    "categoryId": 2
+  },
+  {
+    "id": "uk-learning-design",
+    "title": "UK Learning Design",
+    "banner": {
+      "title": ["UK Learning", "Design"],
+      "description": "Innovative learning design solutions that transform education and corporate training into immersive, effective experiences that foster knowledge retention and growth."
+    },
+    "details": [
+      { "title": "E-Learning Modules", "image": "service-detail-4.jpeg", "desc": "Developing interactive e-learning modules that engage learners and deliver measurable outcomes." },
+      { "title": "Instructional Design", "image": "service-detail-1.jpeg", "desc": "Applying proven instructional design principles to create effective training programs." },
+      { "title": "Video Learning", "image": "service-detail-2.jpeg", "desc": "Producing educational videos that simplify complex topics and enhance learning experiences." },
+      { "title": "Interactive Training", "image": "service-detail-3.jpeg", "desc": "Designing interactive training sessions that encourage participation and practical application." }
+    ],
+    "categoryId": 3
+  }
+]

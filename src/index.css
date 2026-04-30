@@ -117,10 +117,12 @@ h5, h6, .subheading { font-family: var(--font-subheading); font-weight: 600; }
 
 /* ─── Sections ───────────────────────────────────── */
 section {
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;
   width: 100%;
   position: relative;
   overflow: hidden;
+  scroll-margin-top: 80px; /* Exactly matches navbar height to prevent previous section bleed-through */
 }
 
 /* ─── Swiper fill ────────────────────────────────── */
@@ -154,7 +156,7 @@ section {
 /* ─── Menu links (2.8rem, no border-radius) ──────── */
 .menu-item {
   font-family: var(--font-heading);
-  font-size: clamp(1.2rem, 5vw, 2.2rem);
+  font-size: clamp(1rem, 3.5vw, 1.8rem);
   line-height: 1.1;
   text-transform: none;
   border-bottom: 1px solid rgba(255,255,255,0.4);
@@ -171,14 +173,15 @@ section {
   font-weight: 700;
 }
 .menu-item.get-in-touch { 
-  color: #00338D !important; 
+  color: #FFFFFF !important; 
   border-bottom: none;
   margin-top: 10px;
 }
 .menu-item.home-link {
   border-bottom: none;
   border-top: 1px solid rgba(255,255,255,0.4);
-  margin-top: 1rem;
+  margin-top: auto;
+  margin-bottom: 2rem;
 }
 
 /* ─── Responsive ─────────────────────────────────── */

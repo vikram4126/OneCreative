@@ -1,4 +1,5 @@
 import React, { useRef, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -29,51 +30,15 @@ const IconStar = () => (
 );
 
 const CARDS = [
-  { title: ['UK', 'Create'],            Icon: IconScissors },
-  { title: ['US Creative', 'Services'], Icon: IconGlobe    },
-  { title: ['US Advisory', 'Creative'], Icon: IconChart    },
-  { title: ['UK Learning', 'Design'],   Icon: IconStar     },
+  { id: 'uk-create',            title: ['UK', 'Create'],            Icon: IconScissors },
+  { id: 'us-creative-services', title: ['US Creative', 'Services'], Icon: IconGlobe    },
+  { id: 'us-advisory-creative', title: ['US Advisory', 'Creative'], Icon: IconChart    },
+  { id: 'uk-learning-design',   title: ['UK Learning', 'Design'],   Icon: IconStar     },
 ];
 
 export const SectionServices = () => {
   const sectionRef = useRef(null);
   const cardRefs = useRef([]);
-
-  useEffect(() => {
-    const cards = cardRefs.current.filter(Boolean);
-
-    const ctx = gsap.context(() => {
-      if (!sectionRef.current || cards.length === 0) return;
-
-      // Get section dimensions for relative positioning
-      const sectionRect = sectionRef.current.getBoundingClientRect();
-      const sectionCenterX = sectionRect.width / 2;
-      const topOffset = 100; // Position from the top of the section
-
-      // Simple and robust initial state
-      gsap.set(cards, {
-        opacity: 0,
-        y: 60,
-        scale: 0.9
-      });
-
-      gsap.to(cards, {
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 75%', // Trigger earlier for better visibility
-        },
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 1,
-        stagger: 0.15,
-        ease: 'power3.out'
-      });
-
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section
@@ -85,7 +50,7 @@ export const SectionServices = () => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '80px 0',
+        padding: '60px 0', // Reduced padding
         position: 'relative',
         overflow: 'hidden'
       }}
@@ -95,13 +60,14 @@ export const SectionServices = () => {
           {CARDS.map((card, i) => {
             const { Icon } = card;
             return (
-              <div
+              <Link
                 key={i}
+                to={`/service/${card.id}`}
                 ref={el => (cardRefs.current[i] = el)}
                 style={{
-                  width: '100%', // Take full grid column width
+                  width: '100%',
                   maxWidth: '350px',
-                  height: 'clamp(300px, 35vh, 420px)',
+                  height: 'clamp(450px, 55vh, 600px)', // Increased height
                   backgroundColor: '#00B8F5',
                   borderRadius: '0',
                   display: 'flex',
@@ -112,7 +78,15 @@ export const SectionServices = () => {
                   justifySelf: 'center',
                   willChange: 'transform, opacity',
                   boxShadow: '0 10px 30px rgba(0, 184, 245, 0.15)',
+                  textDecoration: 'none',
+                  cursor: 'pointer',
+                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  '&:hover': {
+                    transform: 'scale(1.02)',
+                    boxShadow: '0 15px 40px rgba(0, 184, 245, 0.25)',
+                  }
                 }}
+                className="hover:scale-[1.02] transition-transform duration-300"
               >
               {/* Top-left icon */}
               <div style={{ opacity: 0.8 }}><Icon /></div>
@@ -130,11 +104,11 @@ export const SectionServices = () => {
                 <h2
                   style={{
                     fontFamily: 'var(--font-heading)',
-                    fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', // Significantly increased
-                    fontWeight: 700, // Matching the Condensed Bold font weight
+                    fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)',
+                    fontWeight: 700,
                     textAlign: 'center',
                     lineHeight: 1.1,
-                    color: '#FFFFFF !important', 
+                    color: '#FFFFFF', 
                     textTransform: 'none',
                   }}
                 >
@@ -146,7 +120,7 @@ export const SectionServices = () => {
 
               {/* Bottom-right icon */}
               <div style={{ alignSelf: 'flex-end', opacity: 0.8 }}><Icon /></div>
-            </div>
+            </Link>
           );
         })}
         </div>
